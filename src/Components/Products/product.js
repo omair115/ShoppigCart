@@ -13,7 +13,7 @@ class Products extends Component{
         console.log('my props',this.props)
         const productItems = this.props.products.map(product => (
 
-            <div className="col-md-4">
+            <div className="col-md-4" key={product.id}>
             <div className="thumbnail text-center">
                 <a href={`{#${product.id}`} onClick={(e)=>this.props.handleAddToCart(e,product)}>
                     <img src={`/products/${product.sku}.jpg`} alt={product.title}/>

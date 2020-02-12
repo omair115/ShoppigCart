@@ -10,6 +10,8 @@ class Main extends Component{
       this.state={
          products:[] , filteredProducts:[]
       }
+      this.handleChangeSort =  this.handleChangeSort.bind(this)
+      this.handleChangeSize =  this.handleChangeSize.bind(this)
     }
        componentWillMount(){
       //   axios.get('http://dummy.restapiexample.com/api/v1/employees')
@@ -25,15 +27,37 @@ class Main extends Component{
                 const filteredProducts = res.data;
                 const products = res.data;
                 this.setState({ filteredProducts });
+                this.setState({ products });
                 console.log(filteredProducts)
               })
 
               
 }
       
-handleChangeSort(){
-  
+handleChangeSort(e){
+  this.setState({sort:e.target.value})
+  this.listProducts()
 }
+listProducts(){
+  this.setState(state =>{
+    if(state.sort !==''){
+      state.products.sort((a,b)=>(state.sort==='lowest')? (a.price > b.price?1:-1) : (a.price < b.price ? 1 :-1))
+    }
+    else{
+         state.products.sort((a,b) => (a.id < b.id ? 1 : -1))
+    }
+    if (state.size !== ''){
+      return {filteredProducts: state.products.filter(a=> a.availableSizes.indexOf(state.size.toUpperCase())>=0)}
+    }
+    return {filteredProducts:state.products}
+  })
+
+}
+handleChangeSize(e){
+  this.setState({size:e.target.value})
+  this.listProducts()
+}
+
     render(){
  return (
    <div className="container">
