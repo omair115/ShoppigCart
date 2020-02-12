@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
 import { withStyles, responsiveFontSizes } from '@material-ui/core/styles';
 import axios from 'axios';
-
-
+import Filter from '../../Components/Products/filter'
 import styles from './style'
 import Products from './../../Components/Products/product'
 class Main extends Component{
@@ -28,9 +27,13 @@ class Main extends Component{
                 this.setState({ filteredProducts });
                 console.log(filteredProducts)
               })
+
+              
 }
       
-
+handleChangeSort(){
+  
+}
     render(){
  return (
    <div className="container">
@@ -39,6 +42,9 @@ class Main extends Component{
 
      <div className="row">
        <div className="col-md-8">
+         <Filter size={this.state.size} sort={this.state.sort} handleChangeSize={this.handleChangeSize}
+         handleChangeSort={this.handleChangeSort} count={this.state.filteredProducts.length}/>
+         <hr/>
          <Products products={this.state.filteredProducts} handleAddToCart={this.handleAddToCart}/>
        </div>
 
