@@ -24,6 +24,9 @@ class Main extends Component{
                 this.setState({ products });
                 console.log(filteredProducts)
               })
+              if (localStorage.getItem('cartItems')){
+                this.setState({cartItems:JSON.parse(localStorage.getItem('cartItems'))})
+              }
 
               
 }
