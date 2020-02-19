@@ -14,6 +14,7 @@ class Main extends Component{
       this.handleChangeSort =  this.handleChangeSort.bind(this)
       this.handleChangeSize =  this.handleChangeSize.bind(this)
       this.handleAddToCart = this.handleAddToCart.bind(this)
+      this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this)
     }
        componentWillMount(){
       axios.get(`http://localhost:3000/products`)
@@ -71,6 +72,16 @@ this.setState(state=>{
   localStorage.setItem("cartItems",JSON.stringify(cartItems))
   return cartItems
 })
+}
+
+handleRemoveFromCart(e, item){
+     this.setState(state=>{
+       const cartItems = state.cartItems.filter(elm => elm.id !== item.id)
+
+       localStorage.setItem('cartItems',cartItems)
+       return{cartItems}
+
+     })
 }
 
     render(){

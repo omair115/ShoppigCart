@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import utils from '../../Components/Products/util'
 class Basket extends Component {
     render() {
         const {cartItems} = this.props
@@ -12,11 +12,12 @@ class Basket extends Component {
                     {cartItems.map(item =>
                         <li>
                           <b>{item.title}</b>
-                          X{item.count}
-                          <button className="btn btn-danger" onClick={(e)=>this.handleRemoveFromCart(e,item)}>X</button>
+                          X{item.count} = {item.price * item.count} 
+                          <button className="btn btn-danger" onClick={(e)=>this.props.handleRemoveFromCart(e,item)}>X</button>
                         </li>
                         )}
                 </ul>
+                Total : {utils.formatCurrency(cartItems.reduce((a,c) => a + c.price *c.count ,0))}
                 </div>
                 }
             </div>
