@@ -4,24 +4,18 @@ import axios from 'axios';
 import Filter from '../../Components/Products/filter'
 import styles from './style'
 import Products from './../../Components/Products/product'
+import Basket from '../../Components/Products/basket';
 class Main extends Component{
     constructor(props){
       super(props)
       this.state={
-         products:[] , filteredProducts:[]
+         products:[] , filteredProducts:[] , cartItems:[]
       }
       this.handleChangeSort =  this.handleChangeSort.bind(this)
       this.handleChangeSize =  this.handleChangeSize.bind(this)
+      this.handleAddToCart = this.handleAddToCart.bind(this)
     }
        componentWillMount(){
-      //   axios.get('http://dummy.restapiexample.com/api/v1/employees')
-      // .then(res => {
-       
-      //   this.setState({ products:res.data });
-      //   this.setState({ filteredProducts:res.data });
-      //   console.log('dsfsdfsdf',this.state.filteredProducts);
-      
-      // })
       axios.get(`http://localhost:3000/products`)
               .then(res => {
                 const filteredProducts = res.data;
@@ -58,6 +52,24 @@ handleChangeSize(e){
   this.listProducts()
 }
 
+handleAddToCart(e,product){
+this.setState(state=>{
+  const cartItems = state.cartItems;
+  let productAlreadyInCart = false;
+  cartItems.forEach(item => {
+    if(item.id === product.id){
+      productAlreadyInCart = true;
+      item.count++;
+    }
+  }) 
+  if (!productAlreadyInCart){
+    cartItems.push({...product, count:1})
+  }
+  localStorage.setItem("cartItems",JSON.stringify(cartItems))
+  return cartItems
+})
+}
+
     render(){
  return (
    <div className="container">
@@ -73,6 +85,7 @@ handleChangeSize(e){
        </div>
 
        <div className="col-md-4">
+         <Basket cartItems={this.state.cartItems} handleRemoveFromCart={this.handleRemoveFromCart}/>
        </div>
        </div>
    </div>   
