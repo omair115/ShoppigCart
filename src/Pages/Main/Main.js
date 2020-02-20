@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import { withStyles, responsiveFontSizes } from '@material-ui/core/styles';
-import axios from 'axios';
 import Filter from '../../Components/Products/filter'
 import styles from './style'
 import Products from './../../Components/Products/product'
@@ -17,14 +16,7 @@ class Main extends Component{
       this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this)
     }
        componentWillMount(){
-      axios.get(`http://localhost:3000/products`)
-              .then(res => {
-                const filteredProducts = res.data;
-                const products = res.data;
-                this.setState({ filteredProducts });
-                this.setState({ products });
-                console.log(filteredProducts)
-              })
+   
               if (localStorage.getItem('cartItems')){
                 this.setState({cartItems:JSON.parse(localStorage.getItem('cartItems'))})
               }
