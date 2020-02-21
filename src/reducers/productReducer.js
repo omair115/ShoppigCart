@@ -1,10 +1,12 @@
-import { FETCH_PRODUCTS } from "../actions/types";
-const initialState = {items:[]}
+import { FETCH_PRODUCTS,FILTER_PRODUCTS_BY_SIZE } from "../actions/types";
+const initialState = {items:[],filteredItems:[],size:''}
 export default function (state = initialState, action){
     switch (action.type){
         case FETCH_PRODUCTS:
-            return {...state,items:action.payload}
+            return {...state,items:action.payload,filteredItems:action.payload}
 
+        case FILTER_PRODUCTS_BY_SIZE:
+            return { ...state, size: action.payload.size, filteredItems: action.payload.items };
         default:
             return state;
     }
