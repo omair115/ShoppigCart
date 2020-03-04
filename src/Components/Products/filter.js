@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {filterProducts,f} from '../../../src/actions/productAction'
-import {connect} from 'react-redux'
+
 class filter extends Component {
     render() {
         return (
@@ -25,7 +24,7 @@ class filter extends Component {
                     <label>
                         Size By
                         <select className="form-control" value={this.props.size}
-                        onChange={(e) => this.props.filterProducts(this.props.products, e.target.value)}>
+                        onChange={this.props.handleChangeSize}>
                              <option value="">All</option>
                              <option value="x">XS</option>
                              <option value="s">S</option>
@@ -40,5 +39,5 @@ class filter extends Component {
         );
     }
 }
-export default connect(state => ({ products: state.products.items, size: state.products.size }),
-   { filterProducts })(filter);
+
+export default filter;
